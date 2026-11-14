@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{TITLE}}</title>
+  <style>
+    :root { --bg:#fafaf9; --fg:#0f172a; --muted:#64748b; --card:#fff; --line:#e2e8f0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0c0a09; --fg:#e7e5e4; --muted:#a8a29e; --card:#1c1917; --line:#292524; }
+    }
+    body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif; }
+    main { max-width:72rem; margin:0 auto; padding:2.5rem 1rem; }
+    h1 { margin:0 0 .25rem; font-size:1.5rem; }
+    .sub { color:var(--muted); margin:0 0 1.5rem; }
+    figure { margin:0 0 2rem; padding:1.25rem; background:var(--card); border:1px solid var(--line); border-radius:.75rem; overflow-x:auto; }
+    figcaption { font-weight:600; margin-bottom:.75rem; }
+    .legend { display:flex; flex-wrap:wrap; gap:1rem; font-size:.8rem; color:var(--muted); margin-bottom:1.5rem; }
+    .legend span::before { content:""; display:inline-block; width:.8rem; height:.8rem; margin-right:.35rem; vertical-align:-1px; border-radius:2px; background:var(--c); }
+    .pair { display:grid; grid-template-columns:repeat(auto-fit,minmax(20rem,1fr)); gap:1rem; }
+  </style>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.esm.min.mjs";
+    const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+    mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "neutral", flowchart: { curve: "basis" } });
+    try { await mermaid.run(); } catch (e) { document.body.dataset.error = e.message; }
+    document.body.dataset.rendered = "true";
+  </script>
+</head>
+<body>
+<main>
+  <h1>{{TITLE}}</h1>
+  <p class="sub">{{ONE LINE: what question this answers}}</p>
+  <div class="legend">
+    <span style="--c:#10b981">happy path</span>
+    <span style="--c:#f59e0b">decision</span>
+    <span style="--c:#ef4444">error / blocked</span>
+    <span style="--c:#94a3b8">external system</span>
+  </div>
+
+  <figure>
+    <figcaption>{{DIAGRAM TITLE}}</figcaption>
+    <pre class="mermaid">
+flowchart TD
+  start([User clicks X]) --> step[Screen or step]
+  step --> check{Decision?}
+  check -->|yes| done([Outcome])
+  check -->|no| err[Error shown]
+  err -.retry.-> step
+  classDef happy fill:#d1fae5,stroke:#10b981,color:#064e3b
+  classDef decision fill:#fef3c7,stroke:#f59e0b,color:#78350f
+  classDef error fill:#fee2e2,stroke:#ef4444,color:#7f1d1d
+  classDef ext fill:#f1f5f9,stroke:#94a3b8,color:#334155,stroke-dasharray:4 3
+  class start,step,done happy
+  class check decision
+  class err error
+    </pre>
+  </figure>
+</main>
+</body>
+</html>
