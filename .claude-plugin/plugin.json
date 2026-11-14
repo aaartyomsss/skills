@@ -1,7 +1,7 @@
 {
   "name": "skills",
   "version": "0.1.0",
-  "description": "Personal agent skills: grilling, domain modeling, codebase design, architecture review, diagramming.",
+  "description": "Personal agent skills: grilling, domain modeling, codebase design, architecture review, diagramming, documenting.",
   "repository": "https://github.com/aaartyomsss/skills",
   "license": "MIT",
   "skills": [
@@ -11,6 +11,7 @@
     "./skills/domain-modeling",
     "./skills/codebase-design",
     "./skills/improve-codebase-architecture",
-    "./skills/diagramming"
+    "./skills/diagramming",
+    "./skills/documenting"
   ]
 }
