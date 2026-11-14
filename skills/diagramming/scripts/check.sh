@@ -4,7 +4,8 @@
 # Needs a local Chrome/Chromium and network access (Mermaid loads from a CDN).
 # usage: bash check.sh <file> [out.png|out.svg] [width]   (.svg exports the diagrams instead of a screenshot)
 set -euo pipefail
-src=$(realpath "$1"); png=${2:-${src%.*}.png}; width=${3:-1400}
+[[ $# -ge 1 ]] || { sed -n '2,5p' "$0" >&2; exit 2; }
+src=$(realpath "$1"); png=${2:-${TMPDIR:-/tmp}/$(basename "${src%.*}").png}; width=${3:-1400}
 chrome=$(command -v google-chrome || command -v chromium || command -v chromium-browser) || { echo "no chrome/chromium found" >&2; exit 2; }
 
 html=$src
