@@ -16,7 +16,8 @@ A diagram answers one question for one audience. Mermaid text is the source of t
 3. **Diagram type.** `flowchart TD` for branching processes (default). `flowchart LR` for pipelines. `sequenceDiagram` when *who talks to whom, in what order* is the point. `stateDiagram-v2` for lifecycles (order status, auth session).
 4. **Format.**
    - **HTML** (default; one file, Mermaid from CDN): copy [template.html](template.html), fill the placeholders, one `<figure>` per diagram; `.pair` grid for before/after. Write to `${TMPDIR:-/tmp}/<slug>.html` unless the user wants it in the repo (then `docs/diagrams/`).
-   - **Mermaid only** when the target is markdown (README, PR body, docs) or the user asks: a ```` ```mermaid ```` block, or a `.mmd` file. GitHub renders it natively.
+   - **Mermaid only** when the target is markdown (README, PR body, docs) or the user asks: a ```` ```mermaid ```` block, or a `.mmd` file. GitHub and Notion render it natively.
+   - **Image** when the target can't render Mermaid (Confluence, Slides, email): `bash <skill-dir>/scripts/check.sh <file> out.svg` exports each diagram as a standalone SVG (`out-1.svg`, `out-2.svg`, ... when there are several).
 5. **Verify.** `bash <skill-dir>/scripts/check.sh <file.html|.md|.mmd>` (needs local Chrome/Chromium and network for the Mermaid CDN). It fails on Mermaid syntax errors and writes a PNG next to the file. Read the PNG and fix crossings, cramped labels, unreadable size. On a bare "syntax error", check the pitfalls below first, then bisect by commenting out edges. Not verified = not done.
 6. **Deliver.** `xdg-open <file>` (macOS: `open`), give the absolute path.
 
