@@ -1,0 +1,11 @@
+{
+  "name": "aaartyomsss",
+  "owner": { "name": "aaartyomsss" },
+  "plugins": [
+    {
+      "name": "skills",
+      "source": "./",
+      "description": "Personal agent skills: grilling, domain modeling, codebase design, architecture review, diagramming."
+    }
+  ]
+}
